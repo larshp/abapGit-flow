@@ -9,3 +9,5 @@ Consequences
 
 
 Grouping of transports by CRs?
+
+complexity/length before and after
