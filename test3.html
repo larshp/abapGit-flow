@@ -1,0 +1,40 @@
+<html>  
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.2.3/gitgraph.js"></script>
+</head>
+<body>
+<canvas id="gitGraph"></canvas>
+<script>
+var myTemplateConfig = {
+  branch: {
+    lineWidth: 8,
+    spacingX: 50,  
+    showLabel: true                  // display branch names on graph
+  },
+  commit: {
+    spacingY: -50,
+    dot: {
+      size: 12
+    }
+  }
+};
+var gitgraph = new GitGraph( {
+  template: myTemplateConfig,
+  mode: "extended",
+  orientation: "vertical-reverse"
+} );
+
+var master = gitgraph.branch({name:"dev", column:0});
+master.commit("initial");
+
+var tr1 = gitgraph.orphanBranch("add method");
+tr1.commit("foo");
+
+var tr2 = gitgraph.orphanBranch("use method");
+tr2.commit("bar");
+
+tr1.merge(master);
+tr2.merge(master);
+</script>
+</body>
+</html>
