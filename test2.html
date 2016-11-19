@@ -1,0 +1,48 @@
+<html>  
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.2.3/gitgraph.js"></script>
+</head>
+<body>
+bang, <br>
+<canvas id="gitGraph"></canvas>
+<script>
+var myTemplateConfig = {
+  branch: {
+    lineWidth: 8,
+    spacingX: 50,  
+    showLabel: true                  // display branch names on graph
+  },
+  commit: {
+    spacingY: -50,
+    dot: {
+      size: 12
+    }
+  }
+};
+var gitgraph = new GitGraph( {
+  template: myTemplateConfig,
+  mode: "compact",
+  orientation: "vertical-reverse"
+} );
+
+var master = gitgraph.branch({name:"dev", column:0});
+master.commit("initial");
+var prod = master.branch({name:"prod", column:5});
+prod.commit("initial");
+var qa = master.branch({name:"qa", column:4});
+qa.commit("initial");
+var transport1 = master.branch({name:"add method", column:1});
+transport1.commit();
+
+var transport2 = master.branch({name:"use method", column:2});
+transport2.commit();
+
+transport1.merge(master);
+transport1.merge(qa);
+
+transport2.merge(master);
+transport2.merge(qa);
+transport2.merge(prod);
+</script>
+</body>
+</html>
